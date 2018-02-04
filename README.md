@@ -11,11 +11,11 @@
 
 2. Clone this repository and remove Git tracking
 
-    ```
+```
 $ git clone https://github.com/kakugirai/proxychain.git
 $ cd proxychain
 $ rm -rf .git/
-    ```
+```
 
 3. Go to `config.sh` and set your environment variables in the setting field.
 4. Run `./config.sh`.
