@@ -1,0 +1,5 @@
+v2ray_logs/
+nginx/certs/
+nginx/conf.d/
+nginx/html/
+
