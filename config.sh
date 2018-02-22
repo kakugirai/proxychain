@@ -25,23 +25,15 @@ echo '{
                 "alterId": '$ALTERID'
             }]
         },
-        "detour": {
-            "to": "vmess-detour"
-        },
         "streamSettings": {
             "network": "ws",
             "wsSettings": {
                 "connectionReuse": true,
                 "path": "/"
-            },
-            "security": "tls",
-            "tlsSettings": {
-                "serverName": "'$VIRTUAL_HOST_NAME'",
-                "certificates": [{
-                    "certificateFile": "/etc/nginx/certs/'$VIRTUAL_HOST_NAME'.crt",
-                    "keyFile": "/etc/nginx/certs/'$VIRTUAL_HOST_NAME'.crt"
-                }]
             }
+        },
+        "detour": {
+            "to": "vmess-detour"
         }
     },
     "outbound": {
@@ -63,14 +55,6 @@ echo '{
             "wsSettings": {
                 "connectionReuse": true,
                 "path": "/"
-            },
-            "security": "tls",
-            "tlsSettings": {
-                "serverName": "'$VIRTUAL_HOST_NAME'",
-                "certificates": [{
-                    "certificateFile": "/etc/nginx/certs/'$VIRTUAL_HOST_NAME'.crt",
-                    "keyFile": "/etc/nginx/certs/'$VIRTUAL_HOST_NAME'.crt"
-                }]
             }
         }
     }],
@@ -106,7 +90,6 @@ echo '{
         }
     }
 }' > server.json
-
 
 # ============================ Client Config ===========================
 echo '{
@@ -206,7 +189,7 @@ echo '{
 }' > client.json
 
 # ============================ Docker Config ===========================
-echo 'version: '3'
+echo 'version: "3"
 
 services:
   v2ray:
@@ -279,5 +262,5 @@ proxy_set_header Upgrade $http_upgrade;
 proxy_set_header Connection "upgrade";
 proxy_set_header Host $http_host;
 if ($http_upgrade = "websocket" ) {
-    proxy_pass http://v2ray:19487;
+    proxy_pass http://v2ray:'$VMESS_PORT';
 }' > nginx/vhost.d/'$VIRTUAL_HOST_NAME'_location
