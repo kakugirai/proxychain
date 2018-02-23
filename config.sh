@@ -263,4 +263,4 @@ proxy_set_header Connection "upgrade";
 proxy_set_header Host $http_host;
 if ($http_upgrade = "websocket" ) {
     proxy_pass http://v2ray:'$VMESS_PORT';
-}' > nginx/vhost.d/'$VIRTUAL_HOST_NAME'_location
+}' > nginx/vhost.d/${VIRTUAL_HOST_NAME}_location
